@@ -2,15 +2,12 @@ package main
 
 import (
 	"TamaskaPJU/app/config"
-	"fmt"
-
-	"github.com/gin-gonic/gin"
+	"TamaskaPJU/module/routes"
 )
 
 func main() {
 	db := config.Init()
-	fmt.Println(db)
-	router := gin.Default()
+	router := routes.Init(db)
 
 	router.Run(":9000")
 }
