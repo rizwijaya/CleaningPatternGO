@@ -1,0 +1,26 @@
+{{ define "content" }}
+<div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Device</th>
+                    <th>Energy</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range .device }}
+                <tr>
+                    <td>{{ .Id_device }}</td>
+                    <td>{{ .Energy }} KwH</td>
+                    <td>{{ .Power }} Voltage</td>
+                    <td><a href="/device/edit/{{ .No_device }}">Edit</a></td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </div>
+</div>
+{{ end }}
