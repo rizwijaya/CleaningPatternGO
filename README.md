@@ -1,3 +1,3 @@
 # Go My Pattern Cleaning
-## This is Coding Pattern with Repository Pattern, Clean Architecture, and Microservice
+## This base code is made with the concept and pattern, namely repository Repository-Service Pattern, Clean Architecture and Microservice
 ### Golang with HTML
