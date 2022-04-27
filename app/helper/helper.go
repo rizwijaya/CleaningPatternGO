@@ -1,6 +1,9 @@
 package helper
 
 import (
+	"path/filepath"
+
+	"github.com/gin-contrib/multitemplate"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -38,4 +41,26 @@ func FormatValidationError(err error) []string {
 	}
 
 	return errors
+}
+
+func Render(templatesDir string) multitemplate.Renderer {
+	r := multitemplate.NewRenderer()
+
+	layouts, err := filepath.Glob(templatesDir + "/layouts/*")
+	if err != nil {
+		panic(err.Error())
+	}
+
+	includes, err := filepath.Glob(templatesDir + "/**/*")
+	if err != nil {
+		panic(err.Error())
+	}
+
+	for _, include := range includes {
+		layoutCopy := make([]string, len(layouts))
+		copy(layoutCopy, layouts)
+		files := append(layoutCopy, include)
+		r.AddFromFiles(filepath.Base(include), files...)
+	}
+	return r
 }
