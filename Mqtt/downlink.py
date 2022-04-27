@@ -29,7 +29,7 @@ def downlinkConfig(data, id):
 def downlinkRelay(data, id):
     mydb = connector()
     mycursor = mydb.cursor()
-    dbnya = "device"
+    dbnya = "devices"
     val2 = hexD(data["data"][2:4])
     if data["data"][0:2] == "00": # Control Relay
         val1 = "relay_status"
@@ -63,7 +63,7 @@ def downlinkRelay(data, id):
 def downlinkCalibration(data, id):
     mydb = connector()
     mycursor = mydb.cursor()
-    sql = "UPDATE device SET ampere = %s, voltage = %s, power = %s WHERE id_device = %s"
+    sql = "UPDATE devices SET ampere = %s, voltage = %s, power = %s WHERE id_device = %s"
     val = (hexD(data["data"][2:6]), hexD(data["data"][6:10]), hexD(data["data"][10:16]), id)
     mycursor.execute(sql, val)
     mydb.commit()

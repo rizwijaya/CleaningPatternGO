@@ -29,7 +29,7 @@ def insertHistory(data, id):
 def uplinkDevice(data, id):
     mydb = connector()
     mycursor = mydb.cursor()
-    sql = "UPDATE device SET energy = %s, power = %s, voltage = %s, ampere = %s, powerF = %s, LightSensor = %s, battery = %s, relay_status = %s, brightness = %s, device_time = %s WHERE id_device = %s"
+    sql = "UPDATE devices SET energy = %s, power = %s, voltage = %s, ampere = %s, powerF = %s, LightSensor = %s, battery = %s, relay_status = %s, brightness = %s, device_time = %s WHERE id_device = %s"
     val = (hexD(data["data"][2:14])/10000, hexD(data["data"][14:18]), hexD(data["data"][18:22]), hexD(data["data"][22:26])/100, hexD(data["data"][26:28])/100, hexD(data["data"][28:32]), hexD(data["data"][32:36])/100, hexD(data["data"][36:38]), hexD(data["data"][38:40]), deviceTime(data["data"][40:54]), id)
     mycursor.execute(sql, val)
     mydb.commit()
@@ -48,7 +48,7 @@ def uplinkAlarm(data, id):
             val1 = "brightness" 
         elif data["data"][0:2] == "24":
             val1 = "restart_status" 
-        sql = "UPDATE device SET "+ val1 + " = %s, battery = %s, alarm_type = %s, device_time = %s WHERE id_device = %s"
+        sql = "UPDATE devices SET "+ val1 + " = %s, battery = %s, alarm_type = %s, device_time = %s WHERE id_device = %s"
         val = (hexD(data["data"][2:4]), hexD(data["data"][4:8]), hexD(data["data"][8:10]), hexD(data["data"][10:24]), id)
     
     mycursor.execute(sql, val)
