@@ -3,6 +3,7 @@ package view
 import (
 	"TamaskaPJU/module/utilities/device"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -23,4 +24,17 @@ func (h *deviceView) Index(c *gin.Context) {
 	}
 
 	c.HTML(http.StatusOK, "device_index.html", gin.H{"device": device})
+}
+
+func (h *deviceView) Edit(c *gin.Context) {
+	idParam := c.Param("id")
+	id, _ := strconv.Atoi(idParam)
+
+	device, err := h.deviceService.GetDeviceByID(id)
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "error.html", nil)
+		return
+	}
+
+	c.HTML(http.StatusOK, "device_edit.html", gin.H{"device": device})
 }
