@@ -38,7 +38,7 @@ jobs:
         username: ${{ secrets.AWS_USERNAME }}
         password: ${{ secrets.AWS_PASSWORD }}
         port: ${{ secrets.AWS_PORT }}
-        script: whoami && touch helloword
+        script: cd && ./install.sh
       # env:
       #     HOSTNAME : ${{ secrets.AWS_HOSTNAME  }}
       #     USERNAME : ${{ secrets.AWS_USERNAME  }}
