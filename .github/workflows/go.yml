@@ -39,6 +39,6 @@ jobs:
           PORT: ${{ secrets.AWS_PORT  }}
       run: |
         sudo apt-get install sshpass -y
-        sshpass -p "{{ AWS_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${USERNAME}@${HOSTNAME} -p ${PORT}'
+        sshpass -p "{{ AWS_PASSWORD }}" ssh -o StrictHostKeyChecking=no -p ${PORT} ${USERNAME}@${HOSTNAME}'
           #Now we have got the access of EC2 and we will start the deploy .
           touch helloword '
