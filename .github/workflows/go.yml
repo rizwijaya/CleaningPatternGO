@@ -7,8 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-
-  build:
+  continuous-integration:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -17,21 +16,30 @@ jobs:
       uses: actions/setup-go@v3
       with:
         go-version: 1.18
-
+  build golang:
+    runs-on: ubuntu-latest
+    steps:
     - name: Build
       run: go build -v ./...
-
+  Testing golang:
+    runs-on: ubuntu-latest
+    steps:
     - name: Test
       run: go test -v ./...
-
-    - name: Login to DockerHub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-    - name: Build and push
-      uses: docker/build-push-action@v3
-      with:
-        push: true
-        tags: rizwijaya/gomyclean:latest
+  continuous-deployment:
+    runs-on: ubuntu-latest
+    needs: [ continuous-integration ]
+    steps: 
+    #Deployment for AWS ECS
+    - uses: actions/checkout@v3
+    - name: Deployment to AWS EC2
+      env:
+          HOSTNAME : ${{ secrets.AWS_HOSTNAME  }}
+          USERNAME : ${{ secrets.AWS_USERNAME  }}
+          PASSWORD: ${{ secrets.AWS_PASSWORD  }}
+          PORT: ${{ secrets.AWS_PORT  }}
+      run: |
+        apt-get install sshpass -y
+        sshpass -p "{{ AWS_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${USERNAME}@${HOSTNAME}:${PORT}'
+          #Now we have got the access of EC2 and we will start the deploy .
+          touch helloword
