@@ -30,7 +30,7 @@ jobs:
     needs: [ continuous-integration ]
     steps: 
     #Deployment for AWS ECS
-    - uses: actions/checkout@v3
+    - uses: appleboy/ssh-action@master
     - name: Deployment to AWS EC2
       with:
         host: ${{ secrets.AWS_HOSTNAME }}
