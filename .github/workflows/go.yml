@@ -37,8 +37,11 @@ jobs:
           USERNAME : ${{ secrets.AWS_USERNAME  }}
           PASSWORD: ${{ secrets.AWS_PASSWORD  }}
           PORT: ${{ secrets.AWS_PORT  }}
+          SSH: ${{ secrets.AWS_SSH  }}
       run: |
-        sudo apt-get install sshpass -y
-        sshpass -p "{{ PASSWORD }}" ssh -o StrictHostKeyChecking=no -p ${PORT} ${USERNAME}@${HOSTNAME}'
+        echo "$SSH" > run.sh && chmod 777 run.sh
+        ./run.sh
+        '
           #Now we have got the access of EC2 and we will start the deploy .
-          touch helloword '
+          touch helloword
+        '
