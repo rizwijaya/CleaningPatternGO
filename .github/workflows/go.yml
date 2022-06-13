@@ -39,6 +39,7 @@ jobs:
           PORT: ${{ secrets.AWS_PORT  }}
           SSH: ${{ secrets.AWS_SSH  }}
       run: |
+        sudo apt-get install expect
         echo "$SSH" > run.sh && chmod 777 run.sh
         ./run.sh
         '
