@@ -11,18 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+
     - name: Set up Go
       uses: actions/setup-go@v3
       with:
         go-version: 1.18
-  build-golang:
-    runs-on: ubuntu-latest
-    steps:
+        
     - name: Build
       run: go build -v ./...
-  Testing-golang:
-    runs-on: ubuntu-latest
-    steps:
+
     - name: Test
       run: go test -v ./...
   continuous-deployment:
@@ -39,18 +36,3 @@ jobs:
         password: ${{ secrets.AWS_PASSWORD }}
         port: ${{ secrets.AWS_PORT }}
         script: cd && ./install.sh
-      # env:
-      #     HOSTNAME : ${{ secrets.AWS_HOSTNAME  }}
-      #     USERNAME : ${{ secrets.AWS_USERNAME  }}
-      #     PASSWORD: ${{ secrets.AWS_PASSWORD  }}
-      #     PORT: ${{ secrets.AWS_PORT  }}
-      #     SSH: ${{ secrets.AWS_SSH  }}
-      # run: |
-      #   sudo apt-get install expect
-      #   echo "$SSH" > run.sh && chmod 777 run.sh && run.sh
-      #   '
-        
-      #     #Now we have got the access of EC2 and we will start the deploy .
-      #     touch helloword
-      #   '
-      # shell: bash
