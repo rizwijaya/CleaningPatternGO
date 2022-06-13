@@ -32,14 +32,24 @@ jobs:
     #Deployment for AWS ECS
     - uses: actions/checkout@v3
     - name: Deployment to AWS EC2
-      env:
-          HOSTNAME : ${{ secrets.AWS_HOSTNAME  }}
-          USERNAME : ${{ secrets.AWS_USERNAME  }}
-          PASSWORD: ${{ secrets.AWS_PASSWORD  }}
-          PORT: ${{ secrets.AWS_PORT  }}
-          SSH: ${{ secrets.AWS_SSH  }}
-      run: |
-        sudo apt-get install expect
-        echo "$SSH" > run.sh && chmod 777 run.sh
-        ./run.sh
-      shell: bash
+      with:
+        host: ${{ secrets.AWS_HOSTNAME }}
+        username: ${{ secrets.AWS_USERNAME }}
+        password: ${{ secrets.AWS_PASSWORD }}
+        port: ${{ secrets.AWS_PORT }}
+        script: whoami && touch helloword
+      # env:
+      #     HOSTNAME : ${{ secrets.AWS_HOSTNAME  }}
+      #     USERNAME : ${{ secrets.AWS_USERNAME  }}
+      #     PASSWORD: ${{ secrets.AWS_PASSWORD  }}
+      #     PORT: ${{ secrets.AWS_PORT  }}
+      #     SSH: ${{ secrets.AWS_SSH  }}
+      # run: |
+      #   sudo apt-get install expect
+      #   echo "$SSH" > run.sh && chmod 777 run.sh && run.sh
+      #   '
+        
+      #     #Now we have got the access of EC2 and we will start the deploy .
+      #     touch helloword
+      #   '
+      # shell: bash
