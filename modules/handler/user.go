@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"TamaskaPJU/app/helper"
-	"TamaskaPJU/module/utilities/user"
+	"ClearningPatternGO/app/helper"
+	"ClearningPatternGO/modules/utilities/user"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

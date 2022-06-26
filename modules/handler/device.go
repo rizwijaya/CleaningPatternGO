@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"TamaskaPJU/module/utilities/device"
+	"ClearningPatternGO/modules/utilities/device"
 
 	"github.com/gin-gonic/gin"
 )

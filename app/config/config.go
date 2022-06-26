@@ -1,41 +1,22 @@
 package config
 
 import (
-	"fmt"
-	"log"
+	"errors"
+	"os"
 
-	"github.com/tkanos/gonfig"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
+	dotenv "github.com/golobby/dotenv"
 )
 
-type Configuration struct {
-	DB_USERNAME string
-	DB_PASSWORD string
-	DB_HOST     string
-	DB_PORT     string
-	DB_NAME     string
-}
-
-var db *gorm.DB
-
-func GetConfig() Configuration {
-	conf := Configuration{}
-	gonfig.GetConf("app/config/config.json", &conf)
-	return conf
-}
-
-func Init() *gorm.DB {
-	conf := GetConfig()
-	dsn := conf.DB_USERNAME + ":" + conf.DB_PASSWORD + "@tcp(" + conf.DB_HOST + ":" + conf.DB_PORT + ")/" + conf.DB_NAME + "?charset=utf8&parseTime=True&loc=Local"
-	//dsn := "root:@tcp(127.0.0.1:3306)/crowfund?charset=utf8mb4&parseTime=True&loc=Local"
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-
+func Init() (Conf, error) {
+	conf := Conf{}
+	//Load Environment file
+	file, err := os.Open(".env")
 	if err != nil {
-		log.Fatal(err.Error())
-	} else {
-		fmt.Println(db)
-		log.Println("Connected to database")
+		return conf, errors.New("Error loading .env file")
 	}
-	return db
+	err = dotenv.NewDecoder(file).Decode(&conf)
+	if err != nil {
+		return conf, errors.New("Cannot decode .env file")
+	}
+	return conf, err
 }

@@ -1,19 +1,22 @@
 package routes
 
 import (
-	"TamaskaPJU/module/handler"
-	"TamaskaPJU/module/utilities/device"
-	"TamaskaPJU/module/utilities/user"
-	"TamaskaPJU/module/view"
+	"ClearningPatternGO/app/auth"
+	"ClearningPatternGO/app/helper"
+	"ClearningPatternGO/modules/handler"
+	"ClearningPatternGO/modules/utilities/device"
+	"ClearningPatternGO/modules/utilities/user"
+	"ClearningPatternGO/modules/view"
 
 	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
 func Init(db *gorm.DB) *gin.Engine {
-	router := gin.Default()
-	router.Use(cors.Default())
+	//gin.SetMode(gin.ReleaseMode)
 
 	// Load Repository
 	userRepository := user.NewRepository(db)
@@ -25,6 +28,13 @@ func Init(db *gorm.DB) *gin.Engine {
 	userHandler := handler.NewUserHandler(userService)
 	//Load View
 	deviceView := view.NewDeviceView(deviceService)
+
+	router := gin.Default()
+	router.Use(cors.Default())
+
+	cookieStore := cookie.NewStore([]byte(auth.SECRET_KEY))
+	router.Use(sessions.Sessions("tamaskapju", cookieStore))
+	router.HTMLRender = helper.Render("./public")
 
 	// Routing Website Service
 	router.GET("/device", deviceView.Index)

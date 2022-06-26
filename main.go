@@ -1,23 +1,22 @@
 package main
 
 import (
-	"TamaskaPJU/app/auth"
-	"TamaskaPJU/app/config"
-	"TamaskaPJU/app/helper"
-	"TamaskaPJU/module/routes"
-
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/cookie"
+	"ClearningPatternGO/app/config"
+	"ClearningPatternGO/app/database"
+	"ClearningPatternGO/modules/routes"
+	"log"
 )
 
 func main() {
-	db := config.Init()
+	conf, err := config.Init()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	db := database.Init(conf)
 	router := routes.Init(db)
-	cookieStore := cookie.NewStore([]byte(auth.SECRET_KEY))
-	router.Use(sessions.Sessions("tamaskapju", cookieStore))
 
 	//Load HTML Template
-	router.HTMLRender = helper.Render("./public")
 	router.Static("/assets", "./public/assets")
 	router.Static("/images", "./public/images")
 	router.Static("/css", "./public/assets/css")

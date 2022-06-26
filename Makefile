@@ -20,10 +20,3 @@ start:
 # live reload using nodemon: npm -g i nodemon
 run-nodemon:
 	nodemon --exec go run main.go
-
-#MQTT
-run-mqtt:
-	python /mqtt/service.py
-	
-initialize library MQTT:
-	pip3 install -r /mqtt/requirements.txt

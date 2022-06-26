@@ -1,7 +1,7 @@
 package view
 
 import (
-	"TamaskaPJU/module/utilities/device"
+	"ClearningPatternGO/modules/utilities/device"
 	"net/http"
 	"strconv"
 
