@@ -5,6 +5,8 @@ import (
 	"ClearningPatternGO/app/database"
 	"ClearningPatternGO/modules/routes"
 	"log"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -12,7 +14,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	gin.SetMode(conf.App.Mode)
 	db := database.Init(conf)
 	router := routes.Init(db)
 
@@ -23,5 +25,6 @@ func main() {
 	router.Static("/js", "./public/assets/js")
 	router.Static("/fonts", "./public/assets/fonts")
 
-	router.Run(":9000")
+	//fmt.Println("Starter " + conf.App.Name)
+	router.Run(":" + conf.App.Port)
 }

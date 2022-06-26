@@ -4,6 +4,8 @@ type Conf struct {
 	App struct {
 		Name string `env:"APP_NAME"`
 		Port string `env:"APP_PORT"`
+		Mode string `env:"APP_MODE"`
+		Url  string `env:"APP_URL"`
 	}
 	Db struct {
 		Host string `env:"DB_HOST"`

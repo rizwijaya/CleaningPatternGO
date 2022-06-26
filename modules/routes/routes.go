@@ -16,7 +16,6 @@ import (
 )
 
 func Init(db *gorm.DB) *gin.Engine {
-	//gin.SetMode(gin.ReleaseMode)
 
 	// Load Repository
 	userRepository := user.NewRepository(db)
