@@ -1,4 +1,4 @@
-package user
+package models
 
 type RegisterUserInput struct {
 	Nama     string `json:"nama" binding:"required"`

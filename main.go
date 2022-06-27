@@ -2,21 +2,33 @@ package main
 
 import (
 	"ClearningPatternGO/app/config"
-	"ClearningPatternGO/app/database"
-	"ClearningPatternGO/modules/routes"
+	database "ClearningPatternGO/app/databases"
+	"ClearningPatternGO/app/helper"
+	"ClearningPatternGO/modules/v1/routes"
 	"log"
 
+	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	conf, err := config.Init()
+	gin.SetMode(conf.App.Mode)
 	if err != nil {
 		log.Fatal(err)
 	}
-	gin.SetMode(conf.App.Mode)
 	db := database.Init(conf)
-	router := routes.Init(db)
+
+	router := gin.Default()
+	router.Use(cors.Default())
+
+	cookieStore := cookie.NewStore([]byte(conf.App.Secret_key))
+	router.Use(sessions.Sessions("cleaningpatterngo", cookieStore))
+	router.HTMLRender = helper.Render("./public")
+
+	router = routes.Init(db, conf, router)
 
 	//Load HTML Template
 	router.Static("/assets", "./public/assets")

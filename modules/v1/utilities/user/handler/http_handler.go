@@ -1,8 +1,9 @@
-package handler
+package user
 
 import (
 	"ClearningPatternGO/app/helper"
-	"ClearningPatternGO/modules/utilities/user"
+	"ClearningPatternGO/modules/v1/utilities/user/models"
+	ss "ClearningPatternGO/modules/v1/utilities/user/service"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -13,15 +14,15 @@ type UserHandler interface {
 }
 
 type userHandler struct {
-	userService user.Service
+	userService ss.Service
 }
 
-func NewUserHandler(userService user.Service) *userHandler {
+func NewUserHandler(userService ss.Service) *userHandler {
 	return &userHandler{userService}
 }
 
 func (h *userHandler) RegisterUser(c *gin.Context) {
-	var input user.RegisterUserInput
+	var input models.RegisterUserInput
 
 	err := c.ShouldBindJSON(&input)
 	if err != nil {
@@ -48,7 +49,7 @@ func (h *userHandler) RegisterUser(c *gin.Context) {
 	// 	return
 	// }
 
-	formatter := user.FormatUser(newUser, token)
+	formatter := models.FormatUser(newUser, token)
 
 	response := helper.APIRespon("Account has been registered", http.StatusOK, "success", formatter)
 

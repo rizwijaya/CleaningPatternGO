@@ -1,23 +1,26 @@
-package user
+package service
 
 import (
+	"ClearningPatternGO/modules/v1/utilities/user/models"
+	"ClearningPatternGO/modules/v1/utilities/user/repository"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
 type Service interface {
-	RegisterUser(input RegisterUserInput) (User, error)
+	RegisterUser(input models.RegisterUserInput) (models.User, error)
 }
 
 type service struct {
-	repository Repository
+	repository repository.Repository
 }
 
-func NewService(repository Repository) *service {
+func NewService(repository repository.Repository) *service {
 	return &service{repository}
 }
 
-func (s *service) RegisterUser(input RegisterUserInput) (User, error) {
-	user := User{}
+func (s *service) RegisterUser(input models.RegisterUserInput) (models.User, error) {
+	user := models.User{}
 	user.Nama = input.Nama
 	user.Email = input.Email
 	passwordHash, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.MinCost)
