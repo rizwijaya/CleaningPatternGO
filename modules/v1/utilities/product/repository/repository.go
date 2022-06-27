@@ -1,13 +1,13 @@
 package repository
 
 import (
-	"ClearningPatternGO/modules/v1/utilities/user/models"
+	"ClearningPatternGO/modules/v1/utilities/product/models"
 
 	"gorm.io/gorm"
 )
 
 type Repository interface {
-	Save(user models.User) (models.User, error)
+	ListProduct() ([]models.Product, error)
 }
 
 type repository struct {
@@ -18,11 +18,11 @@ func NewRepository(db *gorm.DB) *repository {
 	return &repository{db}
 }
 
-func (r *repository) Save(user models.User) (models.User, error) {
-	err := r.db.Create(&user).Error
+func (r *repository) ListProduct() ([]models.Product, error) {
+	var products []models.Product
+	err := r.db.Find(&products).Error
 	if err != nil {
-		return user, err
+		return nil, err
 	}
-
-	return user, nil
+	return products, nil
 }

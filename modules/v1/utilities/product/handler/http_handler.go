@@ -4,7 +4,6 @@ import (
 	"ClearningPatternGO/app/helper"
 	"ClearningPatternGO/modules/v1/utilities/product/repository"
 	"ClearningPatternGO/modules/v1/utilities/product/service"
-	ss "ClearningPatternGO/modules/v1/utilities/user/service"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,10 +15,10 @@ type ProductHandler interface {
 }
 
 type productHandler struct {
-	productService ss.Service
+	productService service.Service
 }
 
-func NewProductHandler(productService ss.Service) *productHandler {
+func NewProductHandler(productService service.Service) *productHandler {
 	return &productHandler{productService}
 }
 
@@ -34,11 +33,11 @@ func (h *productHandler) ListProduct(c *gin.Context) {
 	listProduct, err := h.productService.ListProduct()
 
 	if err != nil {
-		response := helper.APIRespon("Register account failed", http.StatusBadRequest, "error", nil)
+		response := helper.APIRespon("Failed to get data all product", http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)
 		return
 	}
 
-	response := helper.APIRespon("Account has been registered", http.StatusOK, "success", formatter)
+	response := helper.APIRespon("Success to get data all product", http.StatusOK, "success", listProduct)
 	c.JSON(http.StatusOK, response)
 }
