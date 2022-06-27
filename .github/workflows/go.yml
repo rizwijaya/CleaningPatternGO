@@ -22,17 +22,3 @@ jobs:
 
     - name: Test
       run: go test -v ./...
-  continuous-deployment:
-    runs-on: ubuntu-latest
-    needs: [ continuous-integration ]
-    steps: 
-    #Deployment for AWS ECS
-    - uses: actions/checkout@v3
-    - name: Deployment to AWS EC2
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.AWS_HOSTNAME }}
-        username: ${{ secrets.AWS_USERNAME }}
-        password: ${{ secrets.AWS_PASSWORD }}
-        port: ${{ secrets.AWS_PORT }}
-        script: cd && ./install.sh
