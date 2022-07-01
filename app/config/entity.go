@@ -15,4 +15,8 @@ type Conf struct {
 		Pass string `env:"DB_PASSWORD"`
 		Port string `env:"DB_PORT"`
 	}
+	BasicAuth struct {
+		Username string `env:"BASIC_AUTH_USER"`
+		Password string `env:"BASIC_AUTH_PASSWORD"`
+	}
 }

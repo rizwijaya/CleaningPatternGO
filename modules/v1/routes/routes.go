@@ -2,6 +2,7 @@ package routes
 
 import (
 	"ClearningPatternGO/app/config"
+	"ClearningPatternGO/app/middlewares"
 	productHandlerV1 "ClearningPatternGO/modules/v1/utilities/product/handler"
 	productviewV1 "ClearningPatternGO/modules/v1/utilities/product/view"
 
@@ -14,7 +15,7 @@ func Init(db *gorm.DB, conf config.Conf, router *gin.Engine) *gin.Engine {
 	productViewV1 := productviewV1.View(db)
 
 	// Routing Website Service
-	product := router.Group("/product")
+	product := router.Group("/product", middlewares.BasicAuth(conf))
 	product.GET("/", productViewV1.Index)
 
 	//Routing API Service
