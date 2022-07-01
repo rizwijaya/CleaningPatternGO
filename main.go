@@ -28,6 +28,13 @@ func main() {
 	router.Use(sessions.Sessions("cleaningpatterngo", cookieStore))
 	router.HTMLRender = helper.Render("./public")
 
+	//Error Handling for 404 Not Found Page and Method Not Allowed
+	router.NoRoute(func(c *gin.Context) {
+		c.HTML(404, "error_404.html", nil)
+	})
+	router.NoMethod(func(c *gin.Context) {
+		c.JSON(404, gin.H{"status": "404", "message": "Method Not Found"})
+	})
 	router = routes.Init(db, conf, router)
 
 	//Load HTML Template
