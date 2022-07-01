@@ -8,8 +8,9 @@ Golang API, HTML (Go Template), and Mysql Starter Kit
 - [About Us Cleaning Pattern Go](#about-us)
 - [Features Cleaning Pattern Go](#features)
 - [Base Code Configuration](#base-code-configuration)
-- [Getting Started with GO](#getting-started-with-go)
-- [Getting Started with Makefile](#getting-started-with-makefile)
+- [Getting Started](#getting-started)
+    + [Getting Started with GO](#getting-started-with-go)
+    + [Getting Started with Makefile](#getting-started-with-makefile)
 - [Author](#author)
 
 ---
@@ -69,8 +70,8 @@ To configure the code base, it can be done by accessing the environment.
 - DB_PORT : Database Port
 
 ##### Basic HTTP Authentication
-BASIC_AUTH_USER : Basic Authentication UserName
-BASIC_AUTH_PASSWORD : Basic Authentication Password
+- BASIC_AUTH_USER : Basic Authentication UserName
+- BASIC_AUTH_PASSWORD : Basic Authentication Password
 
 ---
 ### Getting Started
