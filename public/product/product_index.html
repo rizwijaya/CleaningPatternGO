@@ -1,0 +1,26 @@
+{{ define "content" }}
+<div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Name Product</th>
+                    <th>Amount</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range .list }}
+                <tr>
+                    <td>{{ .Id }}</td>
+                    <td>{{ .Name }}</td>
+                    <td>{{ .Amount }}</td>
+                    <td>{{ .Price }}</td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </div>
+</div>
+{{ end }}

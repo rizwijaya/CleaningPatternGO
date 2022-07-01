@@ -25,11 +25,11 @@ func View(db *gorm.DB) *productView {
 }
 
 func (h *productView) Index(c *gin.Context) {
-	device, err := h.productService.GetAllProduct()
+	listProduct, err := h.productService.ListProduct()
 	if err != nil {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return
 	}
 
-	c.HTML(http.StatusOK, "device_index.html", gin.H{"device": device})
+	c.HTML(http.StatusOK, "product_index.html", gin.H{"list": listProduct})
 }
