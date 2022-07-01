@@ -1,5 +1,7 @@
 # Cleaning Pattern GO
-[![Cleaning Pattern GO](https://github.com/rizwijaya/CleaningPatternGO/actions/workflows/go.yml/badge.svg)](https://github.com/rizwijaya/CleaningPatternGO/actions/workflows/go.yml)  Golang API, HTML (Go Template), and Mysql Starter Kit
+[![Cleaning Pattern GO](https://github.com/rizwijaya/CleaningPatternGO/actions/workflows/go.yml/badge.svg)](https://github.com/rizwijaya/CleaningPatternGO/actions/workflows/go.yml)
+
+Golang API, HTML (Go Template), and Mysql Starter Kit
 
 ---
 ### Table of Contents
