@@ -1,4 +1,4 @@
-package middlewares
+package token
 
 import (
 	"ClearningPatternGO/app/config"

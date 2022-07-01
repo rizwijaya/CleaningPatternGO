@@ -1,4 +1,4 @@
-package middlewares
+package basic
 
 import (
 	"ClearningPatternGO/app/config"
@@ -6,13 +6,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func BasicAuth(conf config.Conf) gin.HandlerFunc {
+func Auth(conf config.Conf) gin.HandlerFunc {
 	return gin.BasicAuth(gin.Accounts{
 		conf.BasicAuth.Username: conf.BasicAuth.Password,
 	})
 }
 
-func BasicAuthAPI(conf config.Conf) gin.HandlerFunc {
+func AuthAPI(conf config.Conf) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		user, pass, ok := c.Request.BasicAuth()
 		if !ok {
