@@ -12,9 +12,10 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
-func main() {
+func setup() (*gorm.DB, config.Conf, *gin.Engine) {
 	conf, err := config.Init()
 	gin.SetMode(conf.App.Mode)
 	if err != nil {
@@ -32,7 +33,16 @@ func main() {
 	//Error Handling for 404 Not Found Page and Method Not Allowed
 	router.NoRoute(error.PageNotFound())
 	router.NoMethod(error.NoMethod())
-	router = routesV1.Init(db, conf, router) //Version 1
+	return db, conf, router
+}
+
+func main() {
+	conf, err := config.Init()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	router := routesV1.Init(setup()) //Version 1
 
 	//fmt.Println("Starter " + conf.App.Name)
 	router.Run(":" + conf.App.Port)

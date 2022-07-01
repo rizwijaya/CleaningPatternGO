@@ -10,7 +10,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func ParseHTML(router *gin.Engine) *gin.Engine { //Load HTML Template
+func ParseTmpl(router *gin.Engine) *gin.Engine { //Load HTML Template
 	router.Static("/assets", "./public/assets")
 	router.Static("/images", "./public/images")
 	router.Static("/css", "./public/assets/css")
@@ -31,6 +31,6 @@ func Init(db *gorm.DB, conf config.Conf, router *gin.Engine) *gin.Engine {
 	api := router.Group("/api/v1")
 	api.GET("/product", productHandlerV1.ListProduct)
 
-	router = ParseHTML(router)
+	router = ParseTmpl(router)
 	return router
 }
